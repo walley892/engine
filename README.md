@@ -1,5 +1,7 @@
 # Python rendering engine
 
+![](cubes.gif)
+
 This project is a lightweight python game engine built on OpenGL.
 Originally a learning project, the goal is to give developers (i.e. me) the ability to quickly make visual and interactive applications purely in code
 
