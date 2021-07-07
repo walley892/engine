@@ -30,8 +30,8 @@ class TextRenderer(TexturedMeshRenderer):
     def __init__(self, text, x0, y0, height, width, color=(0,0,0)):
         super().__init__()
         self.x0, self.y0 = x0, y0
-        self._font_map = json.load(open('textures/font.json'))
-        self._font_tex = imread('textures/font.png')
+        self._font_map = json.load(open('font_textures/font.json'))
+        self._font_tex = imread('font_textures/font.png')
         self.tex = self._font_tex[:,:,:].astype(np.float32)
         self.width = width
         self.height = height
