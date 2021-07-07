@@ -26,7 +26,7 @@ pip3 install .
 
 Head over to the examples subdirectory for some sample code!
 
-[Gameobjects] (./examples/game_object_example.py)
-[Components] (examples/component_example.py)
-[Point cloud rendering] (examples/point_cloud_example.py)
-[Mesh rendering] (examples/mesh_example.py)
+* [Gameobjects](examples/game_object_example.py)
+* [Components](examples/component_example.py)
+* [Point cloud rendering](examples/point_cloud_example.py)
+* [Mesh rendering](examples/mesh_example.py)
