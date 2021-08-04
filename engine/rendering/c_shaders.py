@@ -22,7 +22,7 @@ uniform sampler2D tex;
 void main(){
     vec4 t = texture(tex, uv).rgba;
     if(t.r == 0 && t.g == 0 && t.b == 0){
-        t.a = 0;
+        t.a = 0.0;
     }
     vertex_color= t.rgba;
 }

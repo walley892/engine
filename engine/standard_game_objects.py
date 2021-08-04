@@ -62,6 +62,9 @@ class Button(GameObject):
 
     def update(self):
         Button.IS_CLICKED = False
+
+    def update_color(self, color):
+        self.renderers[0].update_color(color)
     
     def mouse_callback(self, button, state, x, y, camera):
         if state == 0:
@@ -74,10 +77,63 @@ class Button(GameObject):
         self.text = text
         self.text_obj.update_text(text)
 
+class ButtonTable(GameObject):
+    def __init__(self, height, width, buttons = [], v_weights=[], h_weights=[]):
+        # buttons is a 2d array of Button objects
+        super().__init__()
+        self.button_map = {}
+        self.transform.scale(height, width, 1)
+        self.width = width
+        self.height = height
+        self.buttons = buttons
+        self.v_weights = v_weights
+        self.h_weights = h_weights
+        for row in buttons:
+            for button in row:
+                button.set_parent(self)
+            self.button_map[str(button)] = button
+        self.set_button_transforms()
+
+    def set_button_transforms(self):
+        if len(self.button_map) == 0:
+            return
+        button_height = self.height/len(self.buttons)
+        for i, row in enumerate(self.buttons):
+            button_width = self.width/len(self.buttons[i])
+            if len(self.v_weights) != 0:
+                button_height = self.v_weights[i]
+            for j, button in enumerate(row):
+                if len(self.h_weights) != 0:
+                    button_width = self.h_weights[i][j]
+                button.transform.reset()
+                button.transform.scale(button_width, button_height, 1)
+                x = ((2*(j+1))-1)*(button_width/2) - 0.5
+                y = 0.5-((2*(i+1))-1)*(button_height/2)
+                
+                if len(self.h_weights) != 0:
+                    x = sum(self.h_weights[i][:j]) - 0.5 + button_width/2
+
+                button.transform.translate(x, y, 0)
+
+    def add_button(self, button):
+        button.set_parent(self)
+        self.button_map[str(button)] = button
+        self.set_button_transforms()
+
+    def remove_button(self, button):
+        if str(button) not in self.button_map:
+            return
+        self.button_map[str(button)].remove_parent()
+        del self.button_map[str(button)]
+        self.set_button_transforms()
+
+    @property
+    def n_buttons(self):
+        return len(self.button_map)
+
 class ButtonLayout(Enum):
     HORIZONTAL=0
     VERTICAL=1
-
 
 class ButtonPanel(GameObject):
     def __init__(self, height, width, callbacks=[], texts = None, colors = None, layout=ButtonLayout.HORIZONTAL):
@@ -162,6 +218,10 @@ class TextInputField(GameObject):
 
     def remove_letter(self):
         self.text = self.text[:-1]
+        self.button.update_text(self.text)
+    
+    def update_text(self, text):
+        self.text = text
         self.button.update_text(self.text)
 
     def add_letter(self, letter):
