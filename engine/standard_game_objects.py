@@ -53,6 +53,7 @@ class Button(GameObject):
         self.add_renderer(PlaneRenderer(color))
         self.transform.scale(width, height, 1)
         self.text = text
+        self.color = color
         if text is not None:
             t = TextObject(text)
             t.set_parent(self)
@@ -64,6 +65,7 @@ class Button(GameObject):
         Button.IS_CLICKED = False
 
     def update_color(self, color):
+        self.color = color
         self.renderers[0].update_color(color)
     
     def mouse_callback(self, button, state, x, y, camera):

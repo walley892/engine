@@ -94,6 +94,13 @@ class Renderer(object):
                 location,
                 data,
             )
+        elif data_type == 'vec3':
+            glUniform3f(
+                location,
+                data[0],
+                data[1],
+                data[2],
+            )
         elif 'sampler' in data_type:
             self.update_gpu_texture(name, data)
 
