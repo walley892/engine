@@ -314,12 +314,12 @@ def generate_subclass_with_properties(attributes, setters):
     return Sub
 
 GLSL_STR_TO_NP_TYPE = {
-    'bool': np.bool,
+    'bool': bool,
     'int': np.int32,
     'uint': np.uint32,
     'float': np.float32,
     'double': np.float64,
-    'bvec': np.bool,
+    'bvec': bool,
     'ivec': np.int32,
     'uvec': np.uint32,
     'vec': np.float32,

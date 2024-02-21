@@ -26,8 +26,9 @@ class Window(object):
             g.set_window(self)
 
         glutInitWindowPosition(x, y)
-        self.window_id = glutCreateWindow(name)
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
+        self.window_id = glutCreateWindow(name)
+        glutSetWindow(self.window_id)
         glEnable(GL_DEPTH_TEST)
         glDisable(GL_CULL_FACE)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
