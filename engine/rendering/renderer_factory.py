@@ -162,7 +162,7 @@ class Renderer(object):
             vbo = self._attribute_vbos[index]
             vbo.bind()
             glEnableVertexAttribArray(index)
-            glBindBuffer(GL_ARRAY_BUFFER, vbo)
+            glBindBuffer(GL_ARRAY_BUFFER, vbo.buffer)
             gl_type = NUMPY_TYPE_TO_GL_TYPE[data_type]
             if gl_type == GL_FLOAT:
                 glVertexAttribPointer(
@@ -240,7 +240,7 @@ class Renderer(object):
             glDrawArrays(GL_POINTS, 0, self.n_points)
         elif self.render_mode == RenderMode.ELEMENTS:
             self._element_vbo.bind()
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self._element_vbo)
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self._element_vbo.buffer)
             glDrawElements(
                 GL_TRIANGLES,
                 len(self.elements),
